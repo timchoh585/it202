@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Homework IT 202</title>
+
+		<style>
+			.firstname
+			{
+				background-color: green;
+			}
+		</style>
+	</head>
+
+	<body>
+		<form>
+			<br><label for="firstName">First Name</label>
+			<input type="text" name="firstName" id="firstName" placeholder="First Name here"><br>
+
+			<br><label for="lastName">Last Name</label>
+			<input type="text" name="lastName" id="lastName" placeholder="Last Name here"><br>
+
+			<br><label for="email">Email</label>
+			<input type="email" name="email" id="email" placeholder="Email"><br>
+
+			<br><label for="yearInSchool">Year in School</label>
+			<select name="yearInSchool" id="yearInSchool">
+				<option value="select">Select One</option>
+				<option value="freshman">Freshman</option>
+				<option value="sophomore">Sophomore</option>
+				<option value="junior">Junior</option>
+				<option value="senior">Senior</option>
+				<option value="grad">Grad</option>
+			</select><br>
+
+			<br><label for="numberOfClasses">Number of Classes</label>
+			<input type="number" min="0" max="10" name="numberOfClasses" id="numberOfClasses" placeholder="Number of Classes"><br>
+
+			<br><label>Transportation Method</label><br>
+			<input type="radio" name="transportationMethod" id="pt" value="publicTransportation"><label for="pt">Public transportation</label><br>
+			<input type="radio" name="transportationMethod" id="c" value="car"><label for="c">Car</label><br>
+			<input type="radio" name="transportationMethod" id="w" value="walk"><label for="w">Walk</label><br>
+			<input type="radio" name="transportationMethod" id="b" value="bike"><label for="b">Bike</label><br>
+
+			<br><label>Preffered Foods</label><br>
+			<input type="checkbox" name="prefferedFoods" id="m" value="meats"><label for="m">Meats</label><br>
+			<input type="checkbox" name="prefferedFoods" id="v" value="veggies"><label for="v">Veggies</label><br>
+
+			<br><label for="comments">Comments</label>
+			<textarea rows="5" cols="40" name="comments" id="comments" placeholder="Additional comments can be typed here."></textarea><br><br>
+
+			<br><button onClick="submitMe()">Submit</button>
+		</form>
+
+		<section class="box">
+			<h1>Inputted Data</h1>
+			<div id="inputData">
+				<p>Nothing submitted yet.</p>
+			</div>
+		</section>
+
+		<script>
+			function submitMe()
+			{
+				var output = "<p>First Name: " + document.getElementById("firstName").value + "</p><br>";
+				output += "<p>Last Name: " + document.getElementById("lastName").value + "</p><br>";
+				output += "<p>Email: " + document.getElementById("email").value + "</p><br>";
+				output += "<p>Year in School: " + document.getElementById("yearInSchool").value + "</p><br>";
+				output += "<p>Number of Classes: " + document.getElementById("numberOfClasses").value + "</p><br>";
+				var transMethod = document.getElementById("transportationMethod");
+				output += "<p>Transportion method: ";
+				for (var i = 0; i < transMethod.length; i++)
+				{
+					if (transMethod[i].checked)
+					{
+						output += transMethod[i].value;
+					}
+				}
+				output += "</p>";
+				var prefFood = document.getElementById("prefferedFoods");
+				output += "<p>Preffered Foods: ";
+				for (var i = 0; i < prefFood.length; i++)
+				{
+					if (prefFood[i].checked)
+					{
+						output += prefFood[i].value;
+
+						if (i != (prefFood.length-1))
+						{
+							output += ", ";
+						}
+					}
+				}
+				output += "</p>";
+				output += "<p>Comments: " + document.getElementById("comments").value + "</p><br>";
+
+				var outputted = document.getElementById("inputData").innerHTML = output;
+			}
+
+			document.addEventListener("DOMContentLoaded", function(event)
+			{
+				var first = document.getElementById("firstName");
+				first.onclick = function(e)
+				{
+					console.log("onclick");
+					first.className += " firstname";
+					console.log(first.className);
+				}
+				first.onblur = function(e)
+				{
+					console.log("onblur");
+					console.log(first.className);
+					first.className += "";
+					console.log(first.className);
+				}
+			});
+		</script>
+	</body>
+</html>
