@@ -102,12 +102,17 @@
 				var first = document.getElementById("firstName");
 				first.onclick = function(e)
 				{
+					console.log("onclick");
 					first.className += " firstname";
+					console.log(first.className);
+				}
 				}
 				first.onblur = function(e)
 				{
-					console.log()
+					console.log("onblur");
+					console.log(first.className);
 					first.className += "";
+					console.log(first.className);
 				}
 
 			});
