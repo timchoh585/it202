@@ -19,6 +19,7 @@
 
 			<label for="yearInSchool">Year in School</label>
 			<select name="yearInSchool" id="yearInSchool">
+				<option value="select">Select One</option>
 				<option value="freshman">Freshman</option>
 				<option value="sophomore">Sophomore</option>
 				<option value="junior">Junior</option>
@@ -30,14 +31,14 @@
 			<input type="number" name="numberOfClasses" id="numberOfClasses" placeholder="Number of Classes"><br>
 
 			<label for="transportationMethod">Transportation Method</label><br>
-			<input type="radio" name="transportationMethod" value="publicTransportation">Public transportation<br>
-			<input type="radio" name="transportationMethod" value="car">Car</input><br>
-			<input type="radio" name="transportationMethod" value="walk">Walk</input><br>
-			<input type="radio" name="transportationMethod" value="bike">Bike</input><br>
+			<input type="radio" name="transportationMethod" id="pt" value="publicTransportation"><label for="pt">Public transportation</label><br>
+			<input type="radio" name="transportationMethod" id="c" value="car"><label for="c">Car</label><br>
+			<input type="radio" name="transportationMethod" id="w" value="walk"><label for="w">Walk</label><br>
+			<input type="radio" name="transportationMethod" id="b" value="bike"><label for="b">Bike</label><br>
 
 			<label for="prefferedFoods">Preffered Foods</label>
-			<input type="checkbox" name="prefferedFoods" value="meats">Meats</input><br>
-			<input type="checkbox" name="prefferedFoods" value="veggies">Veggies</input><br>
+			<input type="checkbox" name="prefferedFoods" id="m" value="meats"><label for="m">Meats</label><br>
+			<input type="checkbox" name="prefferedFoods" id="v" value="veggies"><label for="v">Veggies</label><br>
 
 			<label for="comments">Comments</label>
 			<textarea rows="5" cols="40" name="comments" id="comments" placeholder="Additional comments can be typed here."></textarea><br>
