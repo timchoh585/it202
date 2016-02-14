@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<form>
+		<form onsubmit="event.preventDefault();">
 			<br><label for="firstName">First Name</label>
 			<input type="text" name="firstName" id="firstName" placeholder="First Name here"><br>
 
@@ -49,7 +49,7 @@
 			<br><label for="comments">Comments</label>
 			<textarea rows="5" cols="40" name="comments" id="comments" placeholder="Additional comments can be typed here."></textarea><br><br>
 
-			<br><button onClick="submitMe()">Submit</button>
+			<br><button onclick="submitMe()">Submit</button>
 		</form>
 
 		<section class="box">
