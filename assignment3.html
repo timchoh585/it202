@@ -2,8 +2,6 @@
 <html>
 	<head>
 		<title>h3 IT 202</title>
-
-		<h2>IT 202 Form</h2>
 	</head>
 
 	<body>
@@ -11,7 +9,7 @@
 			<label for="firstName">First Name</label>
 			<input type="text" name="firstName" id="firstName" placeholder="First Name here"><br>
 
-			<label for="lastNname">Last Name</label>
+			<label for="lastName">Last Name</label>
 			<input type="text" name="lastName" id="lastName" placeholder="Last Name here"><br>
 
 			<label for="email">Email</label>
@@ -28,24 +26,77 @@
 			</select>
 
 			<label for="numberOfClasses">Number of Classes</label>
-			<input type="number" name="numberOfClasses" id="numberOfClasses" placeholder="Number of Classes"><br>
+			<input type="number" min="0" max="10" name="numberOfClasses" id="numberOfClasses" placeholder="Number of Classes"><br>
 
-			<label for="transportationMethod">Transportation Method</label><br>
+			<label>Transportation Method</label><br>
 			<input type="radio" name="transportationMethod" id="pt" value="publicTransportation"><label for="pt">Public transportation</label><br>
 			<input type="radio" name="transportationMethod" id="c" value="car"><label for="c">Car</label><br>
 			<input type="radio" name="transportationMethod" id="w" value="walk"><label for="w">Walk</label><br>
 			<input type="radio" name="transportationMethod" id="b" value="bike"><label for="b">Bike</label><br>
 
-			<label for="prefferedFoods">Preffered Foods</label>
+			<label>Preffered Foods</label>
 			<input type="checkbox" name="prefferedFoods" id="m" value="meats"><label for="m">Meats</label><br>
 			<input type="checkbox" name="prefferedFoods" id="v" value="veggies"><label for="v">Veggies</label><br>
 
 			<label for="comments">Comments</label>
-			<textarea rows="5" cols="40" name="comments" id="comments" placeholder="Additional comments can be typed here."></textarea><br>
+			<textarea rows="5" cols="40" name="comments" id="comments" placeholder="Additional comments can be typed here."></textarea><br><br>
 
-			<button>Submit</button>
-
+			<button onClick="submitMe()">Submit</button>
 		</form>
+
+		<section class="box">
+			<h1>Inputted Data</h1>
+			<div id="inputData">
+			<p>Nothing submitted yet.</p>
+			</div>
+		</section>
+
+		<script>
+			function submitMe()
+			{
+				console.log("submitted");
+				var output = "<p>First Name: " + document.getElementById("firstName").value + "</p><br>";
+				output += "<p>Last Name: " + document.getElementById("lastName").value + "</p><br>";
+				output += "<p>Email: " + document.getElementById("email").value + "</p><br>";
+				output += "<p>Year in School: " + document.getElementById("yearInSchool").value + "</p><br>";
+				output += "<p>Number of Classes: " + document.getElementById("numberOfClasses").value + "</p><br>";
+				var transMethod = document.getElementById("transportationMethod");
+				output += "<p>Transportion method: ";
+				for (var i = 0; i < transMethod.length, i++)
+				{
+					if (transMethod[i].checked)
+					{
+						output += transMethod[i].value;
+					}
+				}
+				output += "</p>";
+				var prefFood = document.getElementById("prefferedFoods");
+				output += "<p>Preffered Foods: ";
+				for (var i = 0; i < prefFood.length, i++)
+				{
+					if (prefFood[i].checked)
+					{
+						output += prefFood[i].value;
+
+						if (i != (prefFood.length-1))
+						{
+							output += ", ";
+						}
+					}
+				}
+				output += "</p>";
+				output += "<p>Comments: " + document.getElementById("comments").value + "</p><br>";
+
+				var outputted = document.getElementById("inputData").innerHTML = output;
+			}
+
+			document.addEventListener("DOMContentLoaded" function(event)
+			{
+				var submitMe = function()
+				{
+
+				}
+			});
+		</script>
 	</body>
-</html>
 </html>
