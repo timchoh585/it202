@@ -1,7 +1,15 @@
 <!doctype html>
 <html>
 	<head>
+		<meta charset="UTF-8"
 		<title>h3 IT 202</title>
+
+		<script>
+			.background
+			{
+				background-color: green;
+			}
+		</script>
 	</head>
 
 	<body>
@@ -54,7 +62,6 @@
 		<script>
 			function submitMe()
 			{
-				console.log("submitted");
 				var output = "<p>First Name: " + document.getElementById("firstName").value + "</p><br>";
 				output += "<p>Last Name: " + document.getElementById("lastName").value + "</p><br>";
 				output += "<p>Email: " + document.getElementById("email").value + "</p><br>";
@@ -92,6 +99,11 @@
 
 			document.addEventListener("DOMContentLoaded", function(event)
 			{
+				var first = document.getElementById("firstName").onClick = function(e)
+				{
+					first.className += "background";
+				}
+
 			});
 		</script>
 	</body>
