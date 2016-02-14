@@ -99,7 +99,8 @@
 
 			document.addEventListener("DOMContentLoaded", function(event)
 			{
-				var first = document.getElementById("firstName").onClick = function(e)
+				var first = document.getElementById("firstName");
+				first.onClick = function(e)
 				{
 					first.className += " firstname";
 				}
