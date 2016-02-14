@@ -4,12 +4,12 @@
 		<meta charset="UTF-8"
 		<title>h3 IT 202</title>
 
-		<script>
+		<style>
 			.background
 			{
 				background-color: green;
 			}
-		</script>
+		</style>
 	</head>
 
 	<body>
@@ -101,7 +101,11 @@
 			{
 				var first = document.getElementById("firstName").onClick = function(e)
 				{
-					first.className += "background";
+					first.className += " background";
+				}
+				first.onblur = function(e)
+				{
+					first.className += "";
 				}
 
 			});
