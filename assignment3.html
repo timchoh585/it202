@@ -67,7 +67,7 @@
 				output += "<p>Email: " + document.getElementById("email").value + "</p><br>";
 				output += "<p>Year in School: " + document.getElementById("yearInSchool").value + "</p><br>";
 				output += "<p>Number of Classes: " + document.getElementById("numberOfClasses").value + "</p><br>";
-				var transMethod = document.getElementById("transportationMethod");
+				var transMethod = document.getElementsByName("transportationMethod");
 				output += "<p>Transportion method: ";
 				for (var i = 0; i < transMethod.length; i++)
 				{
@@ -77,7 +77,7 @@
 					}
 				}
 				output += "</p>";
-				var prefFood = document.getElementById("prefferedFoods");
+				var prefFood = document.getElementsByName("prefferedFoods");
 				output += "<p>Preffered Foods: ";
 				for (var i = 0; i < prefFood.length; i++)
 				{
