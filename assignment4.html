@@ -70,7 +70,9 @@
               </div>
             </div>
           </form>
-          
+
+          <select id="selector"></select>
+        
         </form>
         
         <p><a class="btn btn-lg btn-success" id="btnGetCrimeData" role="button">Map Crimes</a></p>
@@ -108,12 +110,15 @@
         noResults: '<div class="alert alert-info"><strong>Note!</strong> No records were returned for the given criteria. </div>'
       }
       
+      /*  */
       
       
       function getCrimeData () {
         var apiEndpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?";
     
-        var queryString = "year=2016&primary_type=BURGLARY";
+        var queryString = "&primary_type=BURGLARY";
+        queryString += "year=" + $("#year").val();
+        queryString += "&primary_type=" + getElementById("selector").value;
         queryString += "&ward=" + $("#ward").val();
     
         var apiUrl = apiEndpoint + queryString;
@@ -128,8 +133,16 @@
           })
           .fail (function() {
               displayMessage("fail");
-          });    
+          });
             
+      }
+
+      /*
+        fill dropdown menu
+      */
+      window.onload = function()
+      {
+        varJSON = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$where=year=2016&$select=primary_type,count(primary_type)&$group=primary_type", select = document.getElementById("selector");
       }
       
       /*
