@@ -8,23 +8,17 @@
     <meta name="description" content="">
     <meta name="author" content="David Hayes">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-
     <title>Chicago Crime Mapping App</title>
-
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="jumbotron-narrow.css" rel="stylesheet">
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="ie-emulation-modes-warning.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -40,9 +34,7 @@
     
     
   </head>
-
   <body>
-
     <div class="container">
       <div class="header clearfix">
         <!--
@@ -55,7 +47,6 @@
         </nav> -->
         <h3 class="text-muted">Chicago Crime Mapping Tool</h3>
       </div>
-
       <div class="jumbotron">
         <h1></h1>
         <p class="lead">Select your filtering options, then click the button to display a map of crimes meeting your criteria.</p>
@@ -63,176 +54,119 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Year</label>
               <div class="col-sm-10">
-                <input class="form-control" id="year" name="year" type="text" placeholder="Enter a year between 2001 - 2016 " value="" min="2001" max="2016" required/>
-              </div><label class="col-sm-2 control-label">Ward</label>
+                <input class="form-control" id="year" name="year" type="text" placeholder="Enter year between 2001-2016">
+              </div>
+              <label class="col-sm-2 control-label">Ward</label>
               <div class="col-sm-10">
-                <input class="form-control" id="ward" name="ward" type="text" placeholder="Enter a Chicago ward (1 - 50)" value="" min="1" max="50" required/>
+                <input class="form-control" id="ward" name="ward" type="text" placeholder="Enter a Chicago ward (1 - 50)" value="">
+              </div>
+              <label class="col-sm-2 control-label">Crime Type</label>
+              <div class = "col-sm-10">
+              <select class="form-control" id="crimeType" >
+                
+              </select>
               </div>
             </div>
-            <br><label for="selector">Select Type</label>
-            <select name="selector" id="selector">
-            </select><br>
           </form>
-
-        
-        </form>
+          
+      
         
         <p><a class="btn btn-lg btn-success" id="btnGetCrimeData" role="button">Map Crimes</a></p>
       </div>
-
       <div  class="jumbotron">
           <div id="map">
             
           </div>
       </div>
-
-
-
       <footer class="footer">
+        <p>© 2016 David Hayes</p>
       </footer>
-
     </div> <!-- /container -->
-
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="ie10-viewport-bug-workaround.js"></script>
   
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjoeDbfsbX0V-j0y8Na1_TigjK_vbDrxo"></script>
   
     <script>
-    $(document).ready(function() {
-      var year = $("#year").val();
-      var type = $("#pTypes").val();
-      var ward = $("#ward").val();
-      $("#submit").click (function() {
-        var year = $("#year").val();
-        var type = $("#pTypes").val();
-        var ward = $("#ward").val();
-        if(validate(year, type, ward)) {
-          getCrimeData(year, type, ward);
-        }
-      });
-      // Check to see if we can get Primary Types for the newly inputted year.
-      $("#year").change(function() {
-        var year = $("#year").val();
-        $("#pTypes").empty();
-        if (validateYear(year)) {
-          getPTypes(year);
-        }
-      });
-      $("#ward").change(function() {
-      // Why am I redeclaring this? because old vars are no longer valid.
-      // State changes have not been reflected in the old variables.
-        var year = $("#year").val();
-        var type = $("#pTypes").val();
-        var ward = $("#ward").val();
-        validate(year, type, ward);
-      });
-      $("#pTypes").change(function() {
-        var year = $("#year").val();
-        var type = $("#pTypes").val();
-        var ward = $("#ward").val();
-        validate(year, type, ward);
-      });
-      // Run the below on page load
-      
-      // We require at least the year to be correct to retrieve Primary Type.
-      if (validateYear(year)) {
-        getPTypes(year);
-      }else {
-        $("#pTypes").empty(); // Remove loading text or old data.
-      }
-      logme("No map data has been loaded.");
-      validate(year, type, ward); // Run again for submitBtn state.
-    });
-    
-    function validateYear(year) {
-      var element = $("#valid-list");
-      var submitbtn = $("#submit");
-      if (year == null) {
-        return false;
-      }
-      if (year == null || (year < 2001 || year > 2016)) {
-        element.append("<li>Year must be between 2001 and 2016 inclusive.</li>");
-        submitbtn.prop('disabled', true);
-        return false;
-      }
-      submitbtn.prop('disabled', false);
-      return true;
-    }
-    
-    function validateType(intype) {
-      var element = $("#valid-list");
-      var submitbtn = $("#submit");
-      if (intype == null || intype == "invalid" || intype.length == 0) {
-        element.append("<li>A Primary Type must by selected.</li>");
-        submitbtn.prop('disabled', true);
-        return false;
-      }
-      submitbtn.prop('disabled', false);
-      return true;
-    }
-    function validateWard(inward) {
-      var element = $("#valid-list");
-      var submitbtn = $("#submit");
-      if (inward == null || (inward < 1 || inward > 50)) {
-        element.append("<li>A valid ward number must be inputted. (1-50 inclusive) </li>");
-        submitbtn.prop('disabled', true);
-        return false;
-      }
-      submitbtn.prop('disabled', false);
-      return true;
-    }
-    function validate(year, type, ward) {
-      var element = $("#valid-list");
-      var elembox = $("#valid-box");
-      var submitbtn = $("#submit");
-      var errcount = 0;
-      console.log("Validate called: Year: " + year + ", type: " + type + ", ward: " + ward);
-      element.empty();
-      if (!validateYear(year)) { errcount++; }
-      if (!validateType(type)) { errcount++; }
-      if (!validateWard(ward)) { errcount++; }
-      if(errcount == 0) {
-        elembox.removeClass("alert");
-        submitbtn.prop('disabled', false);
-        return true;
-      }else {
-        elembox.addClass("alert");
-        submitbtn.prop('disabled', true);
-        return false;
-      }
-    }
-    
-    function getPTypes(year) {
-      var endpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$where=year=" + year + "&$select=primary_type,count%28primary_type%29&$group=primary_type"; 
-      var pTypeElement = $('#pTypes');
-      var year = $("#year").val();
-      var type = $("#pTypes").val();
-      var ward = $("#ward").val();
-      pTypeElement.empty();
-      pTypeElement.append($("<option />").text("Loading..."));
-      var ajaxreq = $.get(endpoint, function(data) {
-        pTypeElement.empty();
-        pTypeElement.append($("<option />").val("invalid").text("Select an option below"));
-        $.each(data, function() {
-          pTypeElement.append($("<option />").val(this.primary_type).text(this.primary_type));
+      $(document).ready(function () {
+        //loading select control
+        var crimeTypeApiUrl = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$where=year=2016&$select=primary_type,count(primary_type)&$group=primary_type";
+        $.get(crimeTypeApiUrl, function(data){
+          for(var i=0; i<data.length; i++){
+            var currentCrime = data[i];
+            console.log(currentCrime.primary_type);
+            var optionHTML = '<option value = "'+ currentCrime.primary_type +'">'+ currentCrime.primary_type +'</option>'
+            $("#crimeType").append(optionHTML);
+          }
         });
-        validate(year, type, ward);
+        $("#btnGetCrimeData").click (function () {
+               var year = $("#year").val();
+               var ward = $("#ward").val();
+               var crimeType = $("#crimeType").val();
+               console.log(crimeType);
+               if(year >= 2001 && year <= 2016 && ward >= 1 && ward <= 50){
+                 getCrimeData(year, crimeType, ward);
+               }else{
+                 alert("Bad input");
+               }
+        });
       });
-    }
-    function displayCrimeMap (data) {
-//41.873589,-87.65325, Jane Addams Hull House at UIC
-        var myLatLng = {lat: 41.873589, lng: -87.65325};
+      
+      var messages = {
+        fail: '<div class="alert alert-danger"><strong>Warning!</strong> Unable to retrieve data. </div>',
+        noResults: '<div class="alert alert-info"><strong>Note!</strong> No records were returned for the given criteria. </div>'
+      }
+      
+      
+      
+      function getCrimeData (year, primary_type, ward) {
+        var apiEndpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?";
+    
+      
+        var queryString = "year="+ year +"&primary_type="+ primary_type +"&ward="+ ward;
+       
+    
+        var apiUrl = apiEndpoint + queryString;
+    
+        console.log(apiUrl);
+    
+        var jqxhr = $.get(apiUrl, function(data) {
+             if (data.length == 0)
+                displayMessage("noResults");
+             else
+               displayCrimeMap(data);
+          })
+          .fail (function() {
+              displayMessage("fail");
+          });    
+            
+      }
+      
+      /*
+          messages
+      */
+      function displayMessage(strMsgType) {
+          $("#map").html(messages[strMsgType]);
+      }      
+      /*
+          create the map and load the markers
+      */
+      function displayCrimeMap (data) {
+        var myLatLng = {lat: parseFloat(data[0].latitude), 
+                              lng: parseFloat(data[0].longitude)};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 13,
+          zoom: 12,
           center: myLatLng
         });
+        
+            
         $.each(data, function (i, entry) {
               var contentString = 
                 '<h2>' + data[i].primary_type + '</h2>'
                 + '<p>' + data[i].description + '<br>'
-                + data[i].block + '</p>';
+                + data[i].block + '<br>'
+                + data[i].date
+                + '</p>';
               
               var marker = new google.maps.Marker({
                 position: {lat: parseFloat(data[i].latitude), 
@@ -247,26 +181,12 @@
               marker.addListener('click', function() {
                 infowindow.open(map, marker);
               });
-        }); 
+              
+        }); // end of $.each
         
-      }
-    function getCrimeData(year, type, ward) {
-      var endpoint = "https://data.cityofChicago.org/resource/ijzp-q8t2.json?";
-      var queryString = "year="+year+"&primary_type="+type+"&ward="+ward;
-      var ajaxreq = $.get(endpoint+queryString, function(data) {
-        if (data.length > 0) {
-          displayCrimeMap(data);
-          logme("Map was loaded with <strong>" + data.length + "</strong> point(s).");
-        }else {
-          logme("<span class=\"text-red\">No data was returned by the server.</span> Map was left intact from previous query.");
-        }
-      });
-    }
-  function logme(msg) {
-    var element = $("#history-list");
-    var timenow = new Date();
-    element.prepend("<li>["+timenow.toLocaleTimeString()+"]: "+msg+"</li>");
-  }
-  </script>
-
-</body></html>
+        
+      } // end of displayCrimeMap
+      
+    </script>
+</body>
+</html>
