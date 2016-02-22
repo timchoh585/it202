@@ -77,10 +77,13 @@
           {
             $(this).data('valid', false);
           }
-          validate.each(function() 
-          {
-
-          });
+          validate.each(function () {
+            if ($(this).data('valid') == true) {
+                valid = true;
+            } else {
+                valid = false;
+            }
+        });
           if (valid === true) {
             $('input[type=submit]').prop('disabled', false);
         }else{
