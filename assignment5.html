@@ -101,7 +101,6 @@
         for(var i = 0; i < data.length; i++) {
           var temp = data[i];
           temp = data[i].primary_type;
-          console.log(temp);
           var $select = $('#select');
           $('<option>').val(temp).text(temp).appendTo($select);
         }
@@ -133,11 +132,8 @@
       function getCrimeData () {
         var arr = $("#select :selected");
         var str = "";
-        console.log("hi");
-        console.log("\n");
         for(var i = 0; i < arr.length; i++) {
           var temp = arr[i].innerHTML;
-          console.log(temp);
           str += "primary_type = " + "'" + temp + "'";
           if(i != arr.length - 1) {
             str += " OR ";
