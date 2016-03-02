@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://getbootstrap.com/examples/jumbotron-narrow/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="David Hayes">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <title>Chicago Crime Mapping App</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <script src="ie-emulation-modes-warning.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <style>
+      #map {
+        width: 500px;
+        height: 380px;
+      }
+      
+    </style>
+    
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="header clearfix">
+        <h3 class="text-muted">Chicago Crime Mapping Tool</h3>
+      </div>
+      <div class="jumbotron">
+        <h1></h1>
+        <p class="lead">Select your filtering options, then click the button to display a map of crimes meeting your criteria.</p>
+         <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Year</label>
+              <div class="col-sm-10">
+                <input class="form-control" id="year" name="year" type="text" placeholder="Enter year between 2001-2016" value="" min="2001" max="2016">
+              </div>
+              <label class="col-sm-2 control-label">Ward</label>
+              <div class="col-sm-10">
+                <input class="form-control" id="ward" name="ward" type="text" placeholder="Enter a Chicago ward (1 - 50)" value="" min="1" max="50">
+              </div>
+              <label class="col-sm-2 control-label">Crime Type</label>
+              <div class = "col-sm-10">
+              <select class="form-control" id="crimeType" >
+                
+              </select>
+              </div>
+            </div>
+          </form>
+          
+        <p><a class="btn btn-lg btn-success" id="btnGetCrimeData" role="button">Map Crimes</a></p>
+      </div>
+      <div  class="jumbotron">
+          <div id="map">
+            
+          </div>
+      </div>
+      <footer class="footer">
+      </footer>
+    </div> 
+  
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjoeDbfsbX0V-j0y8Na1_TigjK_vbDrxo"></script>
+  
+    <script>
+      $(document).ready(function () {
+        var validate = $("#year, #ward"), valid = false;
+        validate.keyup(function()
+        {
+          if ($(this).val().length > 0)
+          {
+            $(this).data('valid', true);
+          }
+          else
+          {
+            $(this).data('valid', false);
+          }
+          validate.each(function () {
+            if ($(this).data('valid') == true) {
+                valid = true;
+            } else {
+                valid = false;
+            }
+        });
+          if (valid === true) {
+            $('input[type=submit]').prop('disabled', false);
+        }else{
+            $('input[type=submit]').prop('disabled', true);        
+        }
+        });
+
+
+        var crimeTypeApiUrl = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$where=year=2016&$select=primary_type,count(primary_type)&$group=primary_type";
+        $.get(crimeTypeApiUrl, function(data){
+          for(var i=0; i<data.length; i++){
+            var currentCrime = data[i];
+            console.log(currentCrime.primary_type);
+            var optionHTML = '<option value = "'+ currentCrime.primary_type +'">'+ currentCrime.primary_type +'</option>'
+            $("#crimeType").append(optionHTML);
+          }
+        });
+        $("#btnGetCrimeData").click (function () {
+               var year = $("#year").val();
+               var ward = $("#ward").val();
+               var crimeType = $("#crimeType").val();
+               console.log(crimeType);
+               if(year >= 2001 && year <= 2016 && ward >= 1 && ward <= 50){
+                 getCrimeData(year, crimeType, ward);
+               }else{
+                 alert("Bad input");
+               }
+        });
+      });
+      
+      var messages = {
+        fail: '<div class="alert alert-danger"><strong>Warning!</strong> Unable to retrieve data. </div>',
+        noResults: '<div class="alert alert-info"><strong>Note!</strong> No records were returned for the given criteria. </div>'
+      }
+      
+      
+      
+      function getCrimeData (year, primary_type, ward) {
+        var apiEndpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?";
+    
+        var queryString = "year="+ year +"&primary_type="+ primary_type +"&ward="+ ward;
+       
+    
+        var apiUrl = apiEndpoint + queryString;
+    
+        console.log(apiUrl);
+    
+        var jqxhr = $.get(apiUrl, function(data) {
+             if (data.length == 0)
+                displayMessage("noResults");
+             else
+               displayCrimeMap(data);
+          })
+          .fail (function() {
+              displayMessage("fail");
+          });    
+            
+      }
+      
+      /*
+          messages
+      */
+      function displayMessage(strMsgType) {
+          $("#map").html(messages[strMsgType]);
+      }      
+      /*
+          create the map and load the markers
+      */
+      function displayCrimeMap (data) {
+        var myLatLng = {lat: parseFloat(data[0].latitude), 
+                              lng: parseFloat(data[0].longitude)};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: myLatLng
+        });
+        
+            
+        $.each(data, function (i, entry) {
+              var contentString = 
+                '<h2>' + data[i].primary_type + '</h2>'
+                + '<p>' + data[i].description + '<br>'
+                + data[i].block + '<br>'
+                + data[i].date
+                + '</p>';
+              
+              var marker = new google.maps.Marker({
+                position: {lat: parseFloat(data[i].latitude), 
+                              lng: parseFloat(data[i].longitude)},
+                map: map,
+                title: data[i].case_number
+              });
+           
+              var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+              });
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+              
+        }); // end of $.each
+        
+        
+      } // end of displayCrimeMap
+      
+    </script>
+</body>
+</html>
