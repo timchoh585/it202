@@ -1,20 +1,37 @@
+
 <!DOCTYPE html>
 <!-- saved from url=(0050)http://getbootstrap.com/examples/jumbotron-narrow/ -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="David Hayes">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-    <title>Chicago Crime Mapping App</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="jumbotron-narrow.css" rel="stylesheet">
-    <script src="ie-emulation-modes-warning.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<html data-cloud9-id='1' lang="en"><head data-cloud9-id='2'><meta data-cloud9-id='5' http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-cloud9-id='6' charset="utf-8">
+    <meta data-cloud9-id='7' http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta data-cloud9-id='8' name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta data-cloud9-id='9' name="description" content="">
+    <meta data-cloud9-id='10' name="author" content="David Hayes">
+    <link data-cloud9-id='11' rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-    <style>
+    <title data-cloud9-id='12'>Chicago Crime Mapping App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link data-cloud9-id='13' href="bootstrap.min.css" rel="stylesheet">
+
+
+
+    <!-- Custom styles for this template -->
+    <link data-cloud9-id='14' href="jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <script data-cloud9-id='15' src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script data-cloud9-id='16' type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style data-cloud9-id='17'>
       #map {
         width: 500px;
         height: 380px;
@@ -24,109 +41,122 @@
     
     
   </head>
-  <body>
-    <div class="container">
-      <div class="header clearfix">
-        <h3 class="text-muted">Chicago Crime Mapping Tool</h3>
+
+  <body data-cloud9-id='3'>
+
+    <div data-cloud9-id='18' class="container">
+      <div data-cloud9-id='19' class="header clearfix">
+        <h3 data-cloud9-id='20' class="text-muted">Chicago Crime Mapping Tool</h3>
       </div>
-      <div class="jumbotron">
-        <h1></h1>
-        <p class="lead">Select your filtering options, then click the button to display a map of crimes meeting your criteria.</p>
-         <form class="form-horizontal" role="form">
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Year</label>
-              <div class="col-sm-10">
-                <input class="form-control" id="year" name="year" type="text" placeholder="Enter year between 2001-2016" value="" min="2001" max="2016">
+
+      <div data-cloud9-id='21' class="jumbotron">
+        <p data-cloud9-id='22' class="lead">Select your filtering options, then click the button to display a map of crimes meeting your criteria.</p>
+         <form data-cloud9-id='23' class="form-horizontal">
+            <div data-cloud9-id='24' class="form-group">
+              <label data-cloud9-id='25' class="col-sm-2 control-label">Year</label>
+              <div data-cloud9-id='26' class="col-sm-10">
+                <input data-cloud9-id='27'  class="form-control" id="year" name="year" type="text" placeholder="Enter a year (2001-2016)" value="">
+              </div><label data-cloud9-id='28' class="col-sm-2 control-label">Ward</label>
+              <div data-cloud9-id='29' class="col-sm-10">
+                <input data-cloud9-id='30' class="form-control" id="ward" name="ward" type="text" placeholder="Enter a Chicago ward (1 - 50)" value="">
               </div>
-              <label class="col-sm-2 control-label">Ward</label>
-              <div class="col-sm-10">
-                <input class="form-control" id="ward" name="ward" type="text" placeholder="Enter a Chicago ward (1 - 50)" value="" min="1" max="50">
-              </div>
-              <label class="col-sm-2 control-label">Crime Type</label>
-              <div class = "col-sm-10">
-              <select class="form-control" id="crimeType" multiple>
-                
-              </select>
+              <div data-cloud9-id='31'>
+                <select data-cloud9-id='32' id="select" multiple="multiple">
+                  <!--<option value="None">None</option> -->
+                </select>
               </div>
             </div>
           </form>
           
-        <p><a class="btn btn-lg btn-success" id="btnGetCrimeData" role="button">Map Crimes | Assignment 5</a></p>
+         
+        
+        <p data-cloud9-id='33'><a data-cloud9-id='34' class="btn btn-lg btn-success" id="btnGetCrimeData" role="button">Map Crimes</a></p>
       </div>
-      <div  class="jumbotron">
-          <div id="map">
+
+      <div data-cloud9-id='35'  class="jumbotron">
+          <div data-cloud9-id='36' id="map">
             
           </div>
       </div>
-      <footer class="footer">
+
+ <div data-cloud9-id='37' id="controls">
+            <button data-cloud9-id='38' id="btnRetrieveData">
+              Narcotics arrests by year  
+            </button>
+          </div>
+
+<div data-cloud9-id='39' id="mainContent"/>
+
+
+      <footer data-cloud9-id='40' class="footer">
+        <p data-cloud9-id='41'>© 2016 David Hayes</p>
       </footer>
+
     </div> 
+
+
+   
   
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjoeDbfsbX0V-j0y8Na1_TigjK_vbDrxo"></script>
+    <script data-cloud9-id='42' src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjoeDbfsbX0V-j0y8Na1_TigjK_vbDrxo"></script>
   
-    <script>
+    <script data-cloud9-id='43'>
       $(document).ready(function () {
-        var validate = $("#year, #ward"), valid = false;
-        validate.keyup(function()
-        {
-          if ($(this).val().length > 0)
-          {
-            $(this).data('valid', true);
-          }
-          else
-          {
-            $(this).data('valid', false);
-          }
-          validate.each(function () {
-            if ($(this).data('valid') == true) {
-                valid = true;
-            } else {
-                valid = false;
-            }
-        });
-          if (valid === true) {
-            $('input[type=submit]').prop('disabled', false);
-        }else{
-            $('input[type=submit]').prop('disabled', true);
+       $.get("https://data.cityofchicago.org/resource/ijzp-q8t2.json?$where=year=2016&$select=primary_type,count(primary_type)&$group=primary_type", function(data) { 
+        
+        for(var i = 0; i < data.length; i++) {
+          var temp = data[i];
+          temp = data[i].primary_type;
+          console.log(temp);
+          var $select = $('#select');
+          $('<option>').val(temp).text(temp).appendTo($select);
         }
-        });
-
-
-        var crimeTypeApiUrl = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$where=year=2016&$select=primary_type,count(primary_type)&$group=primary_type";
-        $.get(crimeTypeApiUrl, function(data){
-          for(var i=0; i<data.length; i++){
-            var currentCrime = data[i];
-            console.log(currentCrime.primary_type);
-            var optionHTML = '<option value = "'+ currentCrime.primary_type +'">'+ currentCrime.primary_type +'</option>'
-            $("#crimeType").append(optionHTML);
-          }
-        });
+      });
+         
         $("#btnGetCrimeData").click (function () {
-               var year = $("#year").val();
-               var ward = $("#ward").val();
-               var crimeType = $("#crimeType").val();
-               console.log(crimeType);
-               if(year >= 2001 && year <= 2016 && ward >= 1 && ward <= 50){
-                 getCrimeData(year, crimeType, ward);
-               }else{
-                 alert("Bad input");
-               }
+              var year = $("#year").val();
+              var ward = $("#ward").val();
+              var select = $("#select").val();
+              console.log(year + ',' + ward + ',' + select);
+              if(ward <= 0 || ward > 50) {
+                alert("Ward not entered properly, please enter again");
+                return;
+              }
+              else if(year > 2016 || year < 2001) {
+                alert("Year not entered properly, please enter again");
+                return;
+              }
+              getCrimeData();
         });
       });
       
       var messages = {
         fail: '<div class="alert alert-danger"><strong>Warning!</strong> Unable to retrieve data. </div>',
         noResults: '<div class="alert alert-info"><strong>Note!</strong> No records were returned for the given criteria. </div>'
-      }
+      };
       
       
-      
-      function getCrimeData (year, primary_type, ward) {
+      function getCrimeData () {
+        var arr = $("#select :selected");
+        var str = "";
+        console.log("hi");
+        console.log("\n");
+        for(var i = 0; i < arr.length; i++) {
+          var temp = arr[i].innerHTML;
+          console.log(temp);
+          str += "primary_type = " + "'" + temp + "'";
+          if(i != arr.length - 1) {
+            str += " OR ";
+          }
+          
+        }
+        console.log("hello");
+        console.log(str);
         var apiEndpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?";
-    
-        var queryString = "year="+ year +"&primary_type="+ primary_type +"&ward="+ ward;
-       
-    
+      console.log("select:" + $('#select').val());
+        var queryString = "$where=year=" + $("#year").val() + " and " + "(" + str + ")";
+        queryString += " and ward=" + $("#ward").val();
+      console.log(queryString);
+      
         var apiUrl = apiEndpoint + queryString;
     
         console.log(apiUrl);
@@ -149,31 +179,41 @@
       function displayMessage(strMsgType) {
           $("#map").html(messages[strMsgType]);
       }      
+
       /*
           create the map and load the markers
       */
       function displayCrimeMap (data) {
+        console.log(data);
         var myLatLng = {lat: parseFloat(data[0].latitude), 
                               lng: parseFloat(data[0].longitude)};
+
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           center: myLatLng
         });
         
             
+
+
         $.each(data, function (i, entry) {
+
               var contentString = 
                 '<h2>' + data[i].primary_type + '</h2>'
                 + '<p>' + data[i].description + '<br>'
                 + data[i].block + '<br>'
-                + data[i].date
+                + data[i].date + '<br>'
+                + "latitude: " + data[i].latitude + '<br>'
+                + "longitude: " + data[i].longitude + '<br>'
                 + '</p>';
-              
+              /* global google */
+              var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
               var marker = new google.maps.Marker({
                 position: {lat: parseFloat(data[i].latitude), 
                               lng: parseFloat(data[i].longitude)},
                 map: map,
-                title: data[i].case_number
+                title: data[i].case_number,
+                icon: image 
               });
            
               var infowindow = new google.maps.InfoWindow({
@@ -185,9 +225,76 @@
               
         }); // end of $.each
         
-        
       } // end of displayCrimeMap
       
+      var strApiEndpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?";
+
+var strSearchParams = "$where=year<2016%20and%20primary_type=%27narcotics%27&$select=year,%20count(year)&$group=year&$order=year";
+
+var strUrl = strApiEndpoint + strSearchParams;
+
+
+$("#btnRetrieveData").click (function () {
+    /* this function is a very slightly modified copy of the example at http://api.jquery.com/jquery.getjson/
+
+    */
+    var jqxhr = $.get( strUrl, function(data) {
+      drawChart(data);
+    })
+      .done(function() {
+        console.log( "second success" );
+      })
+      .fail(function() {
+        console.log( "error" );
+      })
+      .always(function() {
+        console.log( "complete" );
+      });
+  
+});
+
+
+
+
+
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      //google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart(arrData) {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year');
+        data.addColumn('number', 'Count');
+        
+        
+        $.each(arrData, function(i,entry) {
+           data.addRow([arrData[i].year,parseInt(arrData[i].count_year)]);
+        });
+
+        // Set chart options
+        var options = {'title':'Narcotics arrests by Year',
+                       'width':700,
+                       'height':500
+                      };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.ColumnChart(document.getElementById('mainContent'));
+        chart.draw(data, options);
+      }
+
+      
+      
+
+    
+    
     </script>
-</body>
-</html>
+
+</body></html><script src="/_static/preview/livecss.js"></script>
