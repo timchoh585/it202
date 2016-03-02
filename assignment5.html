@@ -44,7 +44,7 @@
               </div>
               <label class="col-sm-2 control-label">Crime Type</label>
               <div class = "col-sm-10">
-              <select class="form-control" id="crimeType" >
+              <select class="form-control" id="crimeType" multiple>
                 
               </select>
               </div>
@@ -87,7 +87,7 @@
           if (valid === true) {
             $('input[type=submit]').prop('disabled', false);
         }else{
-            $('input[type=submit]').prop('disabled', true);        
+            $('input[type=submit]').prop('disabled', true);
         }
         });
 
