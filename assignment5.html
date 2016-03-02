@@ -81,16 +81,11 @@
 
  <div data-cloud9-id='37' id="controls">
             <button data-cloud9-id='38' id="btnRetrieveData">
-              Narcotics arrests by year  
+              Homicide arrests by year  
             </button>
           </div>
 
 <div data-cloud9-id='39' id="mainContent"/>
-
-
-      <footer data-cloud9-id='40' class="footer">
-        <p data-cloud9-id='41'>© 2016 David Hayes</p>
-      </footer>
 
     </div> 
 
@@ -227,9 +222,13 @@
         
       } // end of displayCrimeMap
       
-      var strApiEndpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?";
 
-var strSearchParams = "$where=year<2016%20and%20primary_type=%27narcotics%27&$select=year,%20count(year)&$group=year&$order=year";
+//Google Charts
+
+
+var strApiEndpoint = "https://data.cityofchicago.org/resource/ijzp-q8t2.json?";
+
+var strSearchParams = "$where=year<2016%20and%20primary_type=%27homicide%27&$select=year,%20count(year)&$group=year&$order=year";
 
 var strUrl = strApiEndpoint + strSearchParams;
 
@@ -280,7 +279,7 @@ $("#btnRetrieveData").click (function () {
         });
 
         // Set chart options
-        var options = {'title':'Narcotics arrests by Year',
+        var options = {'title':'Homicide arrests by Year',
                        'width':700,
                        'height':500
                       };
