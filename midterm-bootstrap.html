@@ -421,12 +421,22 @@
 <script>
 var myCenter = new google.maps.LatLng(41.878114, -87.629798);
 
+var reports = "https://data.cityofchicago.org/resource/3c9v-pnva.json?vehicle_make_model=Ford&status=open&how_many_days_has_the_vehicle_been_reported_as_parked_=90";
+$.get(crimeTypeApiUrl, function(data){
+  for(var i=0; i<data.length; i++){
+    var carsLost = data[i];
+    var optionHTML = '<option value = "'+ currentCrime.primary_type +'">'+ currentCrime.primary_type +'</option>'
+    $("#crimeType").append(optionHTML);
+  }
+});
+
+
 function initialize() {
 var mapProp = {
 center:myCenter,
-zoom:12,
-scrollwheel:false,
-draggable:false,
+zoom:14,
+scrollwheel:true,
+draggable:true,
 mapTypeId:google.maps.MapTypeId.ROADMAP
 };
 
@@ -476,6 +486,5 @@ $(document).ready(function(){
   });
 })
 </script>
-
 </body>
 </html>
