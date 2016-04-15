@@ -485,6 +485,52 @@ $(document).ready(function(){
     });
   });
 })
+
+/*
+          messages
+      */
+      function displayMessage(strMsgType) {
+          $("#map").html(messages[strMsgType]);
+      }      
+      /*
+          create the map and load the markers
+      */
+      function displayCrimeMap (data) {
+        var myLatLng = {lat: parseFloat(data[0].latitude), 
+                              lng: parseFloat(data[0].longitude)};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: myLatLng
+        });
+        
+            
+        $.each(data, function (i, entry) {
+              var contentString = 
+                '<h2>' + data[i].primary_type + '</h2>'
+                + '<p>' + data[i].description + '<br>'
+                + data[i].block + '<br>'
+                + data[i].date
+                + '</p>';
+              
+              var marker = new google.maps.Marker({
+                position: {lat: parseFloat(data[i].latitude), 
+                              lng: parseFloat(data[i].longitude)},
+                map: map,
+                title: data[i].case_number
+              });
+           
+              var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+              });
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+              
+        }); // end of $.each
+        
+        
+      } // end of displayCrimeMap
+
 </script>
 </body>
 </html>
