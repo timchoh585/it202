@@ -1,3 +1,10 @@
+<!--
+    Tim Choh
+
+http://www.w3schools.com/games/default.asp
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,11 +22,14 @@ canvas {
 var myGamePiece;
 var myObstacles = [];
 var myScore;
+var myLives;
+var hit = false;
 
 function startGame() {
     myGamePiece = new component(30, 30, "red", 10, 120);
     myGamePiece.gravity = 0.05;
     myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+    myScore = new component("15px", "Consolas", "red", 80, 40, "text");
     myGameArea.start();
 }
 
@@ -44,12 +54,11 @@ function component(width, height, color, x, y, type) {
     this.width = width;
     this.height = height;
     this.speedX = 0;
-    this.speedY = 0;    
+    this.speedY = 0;
     this.x = x;
     this.y = y;
     this.gravity = 0;
     this.gravitySpeed = 0;
-
     this.update = function() {
         ctx = myGameArea.context;
         if (this.type == "text") {
@@ -144,7 +153,7 @@ function accelerate(n) {
 </script>
 <br>
 <!--<button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">ACCELERATE</button>-->
-<p>Click the ACCELERATE button to start the game</p>
-<p>How long can you stay alive? Use the ACCELEREATE button to stay in the air..</p>
+<p>Use 'Up Arrow' or 'W' to float.  Use 'Down Arrow' or 'D' to sink.</p>
+<p>How long can you stay alive?</p>
 </body>
 </html>
